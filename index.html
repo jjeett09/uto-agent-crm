@@ -101,6 +101,8 @@ button{cursor:pointer}
 .job-ib{color:#7ddfff;background:rgba(53,197,240,.10);border-color:rgba(53,197,240,.32)}
 .job-master-ib{color:#ceb9ff;background:rgba(170,133,255,.11);border-color:rgba(170,133,255,.34)}
 .job-money-manager{color:#85efb8;background:rgba(75,224,150,.10);border-color:rgba(75,224,150,.32)}
+.job-trader{color:#ffd27a;background:rgba(255,174,87,.10);border-color:rgba(255,174,87,.34)}
+.job-academy{color:#ff9fcf;background:rgba(255,112,180,.10);border-color:rgba(255,112,180,.34)}
 .job-unset{color:#a8b3c0;background:rgba(137,150,168,.08);border-color:rgba(137,150,168,.25)}
 .activity .lead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .filter-hint{font-size:11px;color:var(--muted);display:flex;align-items:center;padding:0 3px}
@@ -596,7 +598,7 @@ tbody tr{cursor:pointer} tbody tr:hover{background:#121a24}
           <option value="existing">Existing</option>
         </select>
         <select id="leadJobTitleFilter">
-          <option value="">All job titles</option><option value="IB">IB</option><option value="Master IB">Master IB</option><option value="Money Manager">Money Manager</option><option value="__unset__">Not assigned</option>
+          <option value="">All job titles</option><option value="IB">IB</option><option value="Master IB">Master IB</option><option value="Money Manager">Money Manager</option><option value="Trader">Trader</option><option value="Academy">Academy</option><option value="__unset__">Not assigned</option>
         </select>
         <select id="leadPriorityFilter"><option value="">All priorities</option><option value="hot">Hot</option><option value="warm">Warm</option><option value="cold">Cold</option></select>
         <select id="leadStaleFilter"><option value="">All activity ages</option><option value="3">Stale 3+ days</option><option value="7">Stale 7+ days</option><option value="14">Stale 14+ days</option></select>
@@ -632,6 +634,8 @@ tbody tr{cursor:pointer} tbody tr:hover{background:#121a24}
         <option value="IB">IB</option>
         <option value="Master IB">Master IB</option>
         <option value="Money Manager">Money Manager</option>
+        <option value="Trader">Trader</option>
+        <option value="Academy">Academy</option>
       </select></div>
     </div>
     <div class="row2">
@@ -775,7 +779,7 @@ const toDateOnlyInput = v => {
 const dateOnlyToIso = value => value ? new Date(value+"T12:00:00").toISOString() : null;
 const statusLabel = v => ({new:"New",contacted:"Contacted",interested:"Interested",follow_up:"Follow-up",no_answer:"No Answer",converted:"Converted",not_interested:"Not Interested"}[v]||v||"—");
 const methodIcon = v => ({Phone:"📞",WhatsApp:"💬",Email:"✉️",Telegram:"✈️",SMS:"📱",Meeting:"🤝",Other:"📝"}[v]||"📝");
-const jobTitleClass = v => ({"IB":"job-ib","Master IB":"job-master-ib","Money Manager":"job-money-manager"}[v]||"job-unset");
+const jobTitleClass = v => ({"IB":"job-ib","Master IB":"job-master-ib","Money Manager":"job-money-manager","Trader":"job-trader","Academy":"job-academy"}[v]||"job-unset");
 const jobTitleBadge = v => `<span class="job-title ${jobTitleClass(v)}">${esc(v||"Not assigned")}</span>`;
 const priorityLabel = v => (v||"warm").toUpperCase();
 const priorityBadge = v => `<span class="priority priority-${esc(v||"warm")}">${esc(priorityLabel(v))}</span>`;
