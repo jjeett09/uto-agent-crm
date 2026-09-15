@@ -96,6 +96,8 @@ button{cursor:pointer}
 .job-ib{color:#7ddfff;background:rgba(53,197,240,.10);border-color:rgba(53,197,240,.32)}
 .job-master-ib{color:#ceb9ff;background:rgba(170,133,255,.11);border-color:rgba(170,133,255,.34)}
 .job-money-manager{color:#85efb8;background:rgba(75,224,150,.10);border-color:rgba(75,224,150,.32)}
+.job-trader{color:#ffd08a;background:rgba(255,174,87,.10);border-color:rgba(255,174,87,.32)}
+.job-academy{color:#ffb4df;background:rgba(238,118,183,.10);border-color:rgba(238,118,183,.32)}
 .job-unset{color:#a8b3c0;background:rgba(137,150,168,.08);border-color:rgba(137,150,168,.25)}
 .activity .lead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .filter-hint{font-size:11px;color:var(--muted);display:flex;align-items:center;padding:0 3px}
@@ -573,7 +575,7 @@ tbody tr{cursor:pointer} tbody tr:hover{background:#121a24}
           <option value="existing">Existing</option>
         </select>
         <select id="leadJobTitleFilter">
-          <option value="">All job titles</option><option value="IB">IB</option><option value="Master IB">Master IB</option><option value="Money Manager">Money Manager</option><option value="__unset__">Not assigned</option>
+          <option value="">All job titles</option><option value="IB">IB</option><option value="Master IB">Master IB</option><option value="Money Manager">Money Manager</option><option value="Trader">Trader</option><option value="Academy">Academy</option><option value="__unset__">Not assigned</option>
         </select>
         <select id="leadPriorityFilter"><option value="">All priorities</option><option value="hot">Hot</option><option value="warm">Warm</option><option value="cold">Cold</option></select>
         <select id="leadStaleFilter"><option value="">All activity ages</option><option value="3">Stale 3+ days</option><option value="7">Stale 7+ days</option><option value="14">Stale 14+ days</option></select>
@@ -609,6 +611,8 @@ tbody tr{cursor:pointer} tbody tr:hover{background:#121a24}
         <option value="IB">IB</option>
         <option value="Master IB">Master IB</option>
         <option value="Money Manager">Money Manager</option>
+        <option value="Trader">Trader</option>
+        <option value="Academy">Academy</option>
       </select></div>
     </div>
     <div class="row2">
@@ -743,7 +747,7 @@ const toDateOnlyInput = v => {
 const dateOnlyToIso = value => value ? new Date(value+"T12:00:00").toISOString() : null;
 const statusLabel = v => ({new:"New",contacted:"Contacted",interested:"Interested",follow_up:"Follow-up",no_answer:"No Answer",converted:"Converted",not_interested:"Not Interested"}[v]||v||"—");
 const methodIcon = v => ({Phone:"📞",WhatsApp:"💬",Email:"✉️",Telegram:"✈️",SMS:"📱",Meeting:"🤝",Other:"📝"}[v]||"📝");
-const jobTitleClass = v => ({"IB":"job-ib","Master IB":"job-master-ib","Money Manager":"job-money-manager"}[v]||"job-unset");
+const jobTitleClass = v => ({"IB":"job-ib","Master IB":"job-master-ib","Money Manager":"job-money-manager","Trader":"job-trader","Academy":"job-academy"}[v]||"job-unset");
 const jobTitleBadge = v => `<span class="job-title ${jobTitleClass(v)}">${esc(v||"Not assigned")}</span>`;
 const priorityLabel = v => (v||"warm").toUpperCase();
 const priorityBadge = v => `<span class="priority priority-${esc(v||"warm")}">${esc(priorityLabel(v))}</span>`;
@@ -1683,8 +1687,8 @@ function demoSeed(){
     {id:"l1",name:"John Smith",company:"Atlas Trading",job_title:"IB",priority:"hot",lead_type:"potential",status:"interested",lost_reason:null,status_changed_at:day(-3),phone:"+44 7700 900101",email:"john@example.com",country:"UK",owner_user_id:"mark",created_at:day(-8),updated_at:day(0),updated_by:"mark",version:1,last_contact_at:day(0),next_follow_up:day(1)},
     {id:"l2",name:"Anna Müller",company:null,job_title:"Master IB",priority:"warm",lead_type:"potential",status:"follow_up",lost_reason:null,status_changed_at:day(-2),phone:"+49 170 555 1122",email:"anna@example.com",country:"Germany",owner_user_id:"mark",created_at:day(-5),updated_at:day(-1),updated_by:"mark",version:1,last_contact_at:day(-1),next_follow_up:day(0)},
     {id:"l3",name:"Michael Brown",company:"MB Holdings",job_title:"Money Manager",priority:"warm",lead_type:"existing",status:"contacted",lost_reason:null,status_changed_at:day(-4),phone:"+357 99 123456",email:"michael@example.com",country:"Cyprus",owner_user_id:"mark",created_at:day(-20),updated_at:day(-2),updated_by:"mark",version:1,last_contact_at:day(-2),next_follow_up:null},
-    {id:"l4",name:"Sofia Costa",company:"SC Markets",job_title:"IB",priority:"cold",lead_type:"potential",status:"new",lost_reason:null,status_changed_at:day(-1),phone:"+351 910 222 111",email:"sofia@example.com",country:"Portugal",owner_user_id:"charlie",created_at:day(-1),updated_at:day(-1),updated_by:"charlie",version:1,last_contact_at:null,next_follow_up:day(2)},
-    {id:"l5",name:"David Lee",company:null,job_title:"Master IB",priority:"hot",lead_type:"potential",status:"converted",lost_reason:null,status_changed_at:day(-3),phone:"+65 8123 4488",email:"david@example.com",country:"Singapore",owner_user_id:"charlie",created_at:day(-15),updated_at:day(-3),updated_by:"charlie",version:1,last_contact_at:day(-3),next_follow_up:null}
+    {id:"l4",name:"Sofia Costa",company:"SC Markets",job_title:"Trader",priority:"cold",lead_type:"potential",status:"new",lost_reason:null,status_changed_at:day(-1),phone:"+351 910 222 111",email:"sofia@example.com",country:"Portugal",owner_user_id:"charlie",created_at:day(-1),updated_at:day(-1),updated_by:"charlie",version:1,last_contact_at:null,next_follow_up:day(2)},
+    {id:"l5",name:"David Lee",company:null,job_title:"Academy",priority:"hot",lead_type:"potential",status:"converted",lost_reason:null,status_changed_at:day(-3),phone:"+65 8123 4488",email:"david@example.com",country:"Singapore",owner_user_id:"charlie",created_at:day(-15),updated_at:day(-3),updated_by:"charlie",version:1,last_contact_at:day(-3),next_follow_up:null}
   ];
   interactions=[
     {id:"i1",lead_id:"l1",agent_id:"mark",created_by:"mark",interaction_at:day(0),contact_method:"Phone",direction:"outbound",status:"interested",comment:"Interested in opening an account. Asked about MT5 and minimum deposit. Wants one more call before deciding.",next_follow_up:day(1)},
